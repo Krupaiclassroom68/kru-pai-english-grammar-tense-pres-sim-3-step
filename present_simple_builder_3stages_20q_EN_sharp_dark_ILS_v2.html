@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Infinite Learning Studio — Present Simple Builder (3 Stages × 20) [EN]</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;700;900&family=Rubik:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#22c55e;      /* accent */
+  --pink2:#06b6d4;     /* secondary accent */
+  --bg:#0b0f19;
+  --card:#0f172a;
+  --ink:#f9fafb;
+  --muted:#9ca3af;
+  --line:rgba(34,197,94,.30);
+  --shadow:0 14px 34px rgba(0,0,0,.45);
+  --ok:#22c55e;
+  --bad:#ef4444;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--ink)}
+body{font-family:"Noto Sans Thai","Rubik",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;}
+.header{
+  position:sticky; top:0; z-index:50;
+  background:rgba(11,15,25,.96);
+  border-bottom:1px solid var(--line);
+  box-shadow:0 10px 22px rgba(0,0,0,.35);
+}
+.banner{
+  max-width:1100px;margin:auto;
+  display:flex;align-items:center;gap:12px;
+  padding:12px 12px 10px;
+}
+.logo{
+  width:44px;height:44px;border-radius:14px;
+  display:grid;place-items:center;
+  background:conic-gradient(from 0deg,var(--pink),rgba(255,255,255,.12),var(--pink2),var(--pink));
+  color:#fff;font-weight:900;
+  box-shadow:0 0 18px rgba(34,197,94,.22);
+}
+.brand{font-weight:900;font-size:clamp(16px,2.6vw,24px)}
+.sub{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
+.badge{
+  display:inline-block;margin-top:4px;
+  font-weight:900;font-size:12px;
+  padding:6px 10px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.08);
+  color:var(--ink);
+}
+
+/* controls under logo */
+.ctrl{
+  max-width:1100px;margin:0 auto;
+  padding:0 12px 12px;
+  display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;
+}
+.toggle{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:10px 12px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.35);
+  box-shadow:0 10px 20px rgba(0,0,0,.35);
+  color:var(--ink);
+  font-weight:900;
+  width:210px;
+}
+.switch{
+  width:48px;height:26px;border-radius:999px;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.22);
+  position:relative
+}
+.switch i{
+  position:absolute; top:2px; left:2px;
+  width:20px;height:20px;border-radius:50%;
+  background:linear-gradient(180deg,#ffd1e7,var(--pink));
+  box-shadow:0 0 12px rgba(236,72,153,.22);
+  transition:.15s;
+}
+.switch.on{background:rgba(34,197,94,.16)}
+.switch.on i{left:26px}
+@media (max-width:560px){
+  .toggle{width:100%}
+  .sub{display:none}
+}
+
+.wrap{max-width:1100px;margin:0 auto;padding:14px 12px 28px}
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+}
+.hide{display:none!important}
+.center{text-align:center}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:center}
+
+.bigtitle{font-weight:900;font-size:clamp(22px,4vw,36px)}
+.tagline{color:var(--muted);font-size:clamp(15px,2.9vw,19px);line-height:1.65}
+.pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:6px}
+.pill{
+  padding:6px 10px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(255,255,255,.06);
+  color:var(--ink);font-weight:900;font-size:12px;
+}
+
+.input{
+  display:flex;gap:10px;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.05);
+  border:1px solid var(--line);
+  padding:10px 12px;border-radius:14px;
+  width:min(560px,96%);
+}
+.input input{flex:1;border:none;background:transparent;outline:none;color:var(--ink);font-size:18px;min-width:160px}
+
+.btn{
+  border:none; cursor:pointer;
+  padding:12px 14px;border-radius:14px;
+  font-weight:900; letter-spacing:.2px;
+  color:#fff;
+  background: linear-gradient(180deg, #f9a8d4, var(--pink));
+  box-shadow: 0 10px 0 rgba(236,72,153,.45), 0 18px 30px rgba(236,72,153,.16);
+  transform:translateY(0);
+  transition:.15s;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(2px)}
+.btn.ghost{
+  background:rgba(15,23,42,.92);
+  color:var(--ink);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+}
+.btn.danger{
+  background:linear-gradient(180deg,#ffb4c0,#fb7185);
+  box-shadow: 0 10px 0 rgba(251,113,133,.45), 0 18px 30px rgba(251,113,133,.14);
+}
+.btn.small{padding:10px 12px;font-size:14px}
+
+.levels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+@media (max-width:900px){ .levels{grid-template-columns:1fr;} }
+.level{
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  box-shadow:0 10px 24px rgba(0,0,0,.08);
+  background:linear-gradient(180deg, rgba(236,72,153,.06), rgba(255,255,255,.96));
+}
+.level h3{margin:0;font-weight:900;font-size:18px}
+.level .meta{margin-top:8px;color:var(--muted);font-weight:900;font-size:12px;display:flex;gap:8px;flex-wrap:wrap}
+.chip{padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:var(--card)}
+
+/* Game HUD */
+.hud{
+  display:flex;justify-content:space-between;align-items:center;gap:8px;
+  padding:12px;border-bottom:1px dashed var(--line);
+  flex-wrap:wrap;
+}
+.pill2{
+  font-size:12px;color:var(--ink);font-weight:900;
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--line);
+  padding:7px 10px;border-radius:999px;
+}
+.progress{height:10px;background:rgba(0,0,0,.06);border-radius:999px;overflow:hidden;border:1px solid var(--line);margin:0 12px 12px}
+.progress>div{height:100%;width:0%;background:linear-gradient(90deg,var(--pink),#fb7185,var(--pink));}
+
+.stage{padding:12px}
+.qbox{
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:linear-gradient(180deg, rgba(236,72,153,.06), rgba(255,255,255,.96));
+  padding:14px;
+}
+.qprompt{text-align:center;font-weight:900;color:var(--ink);margin:0 0 8px}
+.qtext{text-align:center;font-weight:900;font-size:clamp(18px,3.2vw,28px);line-height:1.35;max-width:820px;margin:0 auto;}
+
+.build{
+  margin-top:14px;
+  border:1px dashed var(--line);
+  border-radius:16px;
+  background:rgba(15,23,42,.92);
+  padding:12px;
+  min-height:66px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+  align-items:center;
+}
+.slot{
+  padding:10px 12px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.05);
+  font-weight:900;
+}
+
+.slot.win{
+  animation: winPop .5s ease;
+  box-shadow:0 0 20px rgba(236,72,153,.6);
+}
+@keyframes winPop{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.12)}
+  100%{transform:scale(1)}
+}
+
+.bank{
+  margin-top:14px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+}
+.wordBtn{
+  border:1px solid var(--line);
+  background:rgba(15,23,42,.92);
+  color:var(--ink);
+  border-radius:999px;
+  padding:12px 14px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 8px 18px rgba(0,0,0,.06);
+  transition:.12s;
+  font-size:18px;
+}
+.wordBtn:hover{transform:translateY(-1px)}
+.wordBtn.selected{
+  background:rgba(34,197,94,.16);
+  opacity:.65;
+}
+.wordBtn:disabled{cursor:not-allowed}
+
+.tools{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+
+.msg{margin-top:12px;display:flex;justify-content:center;}
+.msg span{
+  display:inline-block;
+  padding:10px 12px;border-radius:14px;
+  border:1px solid var(--line);
+  background:rgba(15,23,42,.92);
+  font-weight:900;
+}
+.ok{color:var(--ok)}
+.bad{color:var(--bad)}
+.explain{
+  margin-top:10px;
+  padding:12px 12px;border-radius:14px;
+  border:1px solid var(--line);
+  background:rgba(220,38,38,.06);
+  color:var(--bad);
+  font-weight:900;
+  line-height:1.6;
+  max-width:920px;
+}
+
+.confetti{position:fixed; left:0; top:0; width:100%; height:100%; pointer-events:none; overflow:hidden; z-index:65}
+.confetti i{position:absolute; width:8px; height:12px; opacity:.95; animation:fall 900ms linear forwards; box-shadow:0 0 10px rgba(236,72,153,.18)}
+@keyframes fall{ to{ transform:translateY(120vh) rotate(420deg); opacity:0 } }
+
+.sparkleLine{
+  height:2px;
+  background:linear-gradient(90deg, transparent, rgba(236,72,153,.7), transparent);
+  margin:0 12px 10px;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="banner">
+    <div class="logo">∞</div>
+    <div class="brand">Infinite Learning Studio — <span style="color:var(--pink)">Present Simple</span> • Sentence Builder</div>
+    <div class="sub">
+      Build sentences step-by-step • 2 attempts per item<br/>
+      <span class="badge">Affirmative • Questions • Negative (20 per stage)</span>
+    </div>
+  </div>
+  <div class="ctrl">
+    <div class="toggle" onclick="toggleSparkle()">
+      <span>✨ Sparkle</span>
+      <div id="swSpark" class="switch on"><i></i></div>
+    </div>
+    <div class="toggle" onclick="toggleSound()">
+      <span>Sound FX</span>
+      <div id="swSound" class="switch on"><i></i></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div id="screenLogin" class="card" style="padding:18px;display:grid;gap:12px;justify-items:center;text-align:center">
+    <div class="bigtitle">MISSION: Present Simple — Build It Right!</div>
+    <div class="tagline">
+      This game has 3 stages: <b>Affirmative</b> • <b>Questions</b> • <b>Negative</b><br/>
+      Each item gives you word buttons (plus 2–3 distractors). Tap to build the correct sentence.<br/>
+      If you're wrong: you get <b>one more try</b>. If you're wrong again, the <b>answer appears</b> and you can move on.
+    </div>
+    <div class="pills">
+      <div class="pill">20 items per stage</div>
+      <div class="pill">2–3 distractors</div>
+      <div class="pill">Undo last word</div>
+      <div class="pill">2 wrong tries → show answer</div>
+    </div>
+
+    <div class="card" style="width:min(920px,96%);padding:14px;background:rgba(255,255,255,.05)">
+      <div style="font-weight:900;color:var(--ink);font-size:18px">🎮 How to Play</div>
+      <div class="tagline" style="margin-top:8px;text-align:left">
+        1) Enter your name, then click <b>Go to Stage Select</b>.<br/>
+        2) Choose a stage: Affirmative / Questions / Negative.<br/>
+        3) Tap the word buttons to build the sentence.<br/>
+        4) Use <b>Undo</b> to remove the last word, or <b>Clear</b> to restart.<br/>
+        5) Click <b>Check</b> — wrong once = try again; wrong twice = the answer appears.<br/>
+        6) Finish a stage to see your score and return to Stage Select.
+      </div>
+    </div>
+
+    <div class="input">
+      <span style="font-weight:900">Name:</span>
+      <input id="playerName" placeholder="e.g., Emma / Alex / Kru Pai"/>
+    </div>
+    <div class="row">
+      <button class="btn" onclick="enterLevels()">Go to Stage Select ▶</button>
+    </div>
+    <div class="note" style="color:var(--muted);font-size:12px">* Sound starts after your first click (browser rule).</div>
+  </div>
+
+  <div id="screenLevels" class="card hide" style="padding:18px">
+    <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center">
+      <div>
+        <div class="bigtitle" style="font-size:28px">Stage Select (Present Simple)</div>
+        <div class="tagline">Player: <b id="whoLevels">-</b> • Choose a stage to practice</div>
+      </div>
+      <div class="row">
+        <button class="btn ghost" onclick="resetPlayer()">Change Player</button>
+      </div>
+    </div>
+
+    <div class="levels">
+      <div class="level">
+        <h3>Stage 1: Affirmative Sentences</h3>
+        <div class="meta">
+          <span class="chip">20 items</span>
+          <span class="chip">Present Simple</span>
+          <span class="chip">with distractors</span>
+        </div>
+        <div class="row" style="justify-content:flex-start;margin-top:10px">
+          <button class="btn" onclick="startStage('affirmative')">Start ▶</button>
+        </div>
+      </div>
+
+      <div class="level">
+        <h3>Stage 2: Questions (Do/Does)</h3>
+        <div class="meta">
+          <span class="chip">20 items</span>
+          <span class="chip">Do/Does</span>
+          <span class="chip">with distractors</span>
+        </div>
+        <div class="row" style="justify-content:flex-start;margin-top:10px">
+          <button class="btn" onclick="startStage('interrogative')">Start ▶</button>
+        </div>
+      </div>
+
+      <div class="level">
+        <h3>Stage 3: Negative (Don't/Doesn't)</h3>
+        <div class="meta">
+          <span class="chip">20 items</span>
+          <span class="chip">Don't/Doesn't</span>
+          <span class="chip">with distractors</span>
+        </div>
+        <div class="row" style="justify-content:flex-start;margin-top:10px">
+          <button class="btn" onclick="startStage('negative')">Start ▶</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sparkleLine" id="sparkLine"></div>
+    <div class="tagline center" style="margin-top:6px">Tip: If it looks wrong, use <b>Undo</b> or <b>Clear</b> and try again 💛</div>
+  </div>
+
+  <div id="screenGame" class="card hide">
+    <div class="hud">
+      <div class="pill2">Stage: <b id="stageName">-</b></div>
+      <div class="pill2">Item <b id="step">1</b>/20</div>
+      <div class="pill2">Score <b id="score">0</b></div>
+      <div class="pill2">Player <b id="whoGame">-</b></div>
+    </div>
+    <div class="progress"><div id="bar"></div></div>
+
+    <div class="stage">
+      <div class="qbox">
+        <div class="qprompt" id="qPrompt">Build the sentence correctly</div>
+        <div id="qText" class="qtext">—</div>
+
+        <div class="build" id="build"></div>
+
+        <div class="tools">
+          <button class="btn ghost small" onclick="undoWord()">↩ Undo</button>
+          <button class="btn ghost small" onclick="resetBuild()">🧽 Clear</button>
+          <button class="btn small" onclick="checkAnswer()">Check ✓</button>
+        </div>
+
+        <div class="msg" id="msg"></div>
+        <div id="explain" class="explain hide"></div>
+
+        <div class="row" style="margin-top:12px">
+          <button class="btn ghost" onclick="backToLevels()">⬅ Back to Stage Select</button>
+          <button class="btn danger" id="nextBtn" onclick="nextQuestion()" disabled>Next ▶</button>
+        </div>
+
+        <div class="bank" id="bank"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="screenResult" class="card hide" style="padding:18px;display:grid;gap:12px;justify-items:center;text-align:center">
+    <div class="bigtitle" id="resultTitle">Stage Summary</div>
+    <div class="tagline">Stage: <b id="resultStage">-</b> • Player: <b id="resultWho">-</b></div>
+    <div class="card" style="width:min(820px,96%);padding:14px;background:rgba(255,255,255,.05)">
+      <div style="font-weight:900;font-size:18px">Score: <span style="color:var(--pink);font-size:26px" id="resultScore">0</span> / 20</div>
+      <div style="margin-top:8px;font-weight:900;color:#111" id="resultMsg">—</div>
+      <div class="tagline" style="margin-top:6px">Replay to build fluency 💛</div>
+    </div>
+    <div class="row">
+      <button class="btn" onclick="playAgain()">Play this stage again</button>
+      <button class="btn ghost" onclick="backToLevels()">Back to Stage Select</button>
+    </div>
+  </div>
+</div>
+
+<div id="fx" class="confetti hide"></div>
+
+<script>
+const DATA = {"affirmative": [{"tokens": ["I", "play", "football", "every", "day."], "distractors": ["plays", "is", "now"], "pool": ["I", "play", "football", "every", "day.", "plays", "is", "now"], "sentence": "I play football every day."}, {"tokens": ["You", "study", "English", "after", "school."], "distractors": ["studies", "are", "yesterday"], "pool": ["You", "study", "English", "after", "school.", "studies", "are", "yesterday"], "sentence": "You study English after school."}, {"tokens": ["We", "go", "to", "the", "market", "on", "Sundays."], "distractors": ["goes", "does", "tomorrow"], "pool": ["We", "go", "to", "the", "market", "on", "Sundays.", "goes", "does", "tomorrow"], "sentence": "We go to the market on Sundays."}, {"tokens": ["They", "watch", "TV", "at", "night."], "distractors": ["watches", "is", "now"], "pool": ["They", "watch", "TV", "at", "night.", "watches", "is", "now"], "sentence": "They watch TV at night."}, {"tokens": ["He", "likes", "milk."], "distractors": ["like", "do", "are"], "pool": ["He", "likes", "milk.", "like", "do", "are"], "sentence": "He likes milk."}, {"tokens": ["She", "cooks", "rice", "every", "morning."], "distractors": ["cook", "does", "is"], "pool": ["She", "cooks", "rice", "every", "morning.", "cook", "does", "is"], "sentence": "She cooks rice every morning."}, {"tokens": ["It", "rains", "a", "lot", "in", "July."], "distractors": ["rain", "are", "did"], "pool": ["It", "rains", "a", "lot", "in", "July.", "rain", "are", "did"], "sentence": "It rains a lot in July."}, {"tokens": ["My", "dad", "works", "in", "a", "hospital."], "distractors": ["work", "does", "are"], "pool": ["My", "dad", "works", "in", "a", "hospital.", "work", "does", "are"], "sentence": "My dad works in a hospital."}, {"tokens": ["My", "mom", "teaches", "math."], "distractors": ["teach", "do", "is"], "pool": ["My", "mom", "teaches", "math.", "teach", "do", "is"], "sentence": "My mom teaches math."}, {"tokens": ["The", "sun", "rises", "in", "the", "east."], "distractors": ["rise", "does", "are"], "pool": ["The", "sun", "rises", "in", "the", "east.", "rise", "does", "are"], "sentence": "The sun rises in the east."}, {"tokens": ["Tom", "reads", "books", "every", "week."], "distractors": ["read", "do", "are"], "pool": ["Tom", "reads", "books", "every", "week.", "read", "do", "are"], "sentence": "Tom reads books every week."}, {"tokens": ["Jane", "writes", "emails", "at", "work."], "distractors": ["write", "does", "is"], "pool": ["Jane", "writes", "emails", "at", "work.", "write", "does", "is"], "sentence": "Jane writes emails at work."}, {"tokens": ["My", "brother", "studies", "hard."], "distractors": ["study", "do", "are"], "pool": ["My", "brother", "studies", "hard.", "study", "do", "are"], "sentence": "My brother studies hard."}, {"tokens": ["The", "cat", "drinks", "water."], "distractors": ["drink", "does", "are"], "pool": ["The", "cat", "drinks", "water.", "drink", "does", "are"], "sentence": "The cat drinks water."}, {"tokens": ["A", "bird", "flies", "fast."], "distractors": ["fly", "do", "is"], "pool": ["A", "bird", "flies", "fast.", "fly", "do", "is"], "sentence": "A bird flies fast."}, {"tokens": ["Kru", "Pai", "helps", "students."], "distractors": ["help", "do", "are"], "pool": ["Kru", "Pai", "helps", "students.", "help", "do", "are"], "sentence": "Kru Pai helps students."}, {"tokens": ["Emma", "does", "her", "homework", "every", "day."], "distractors": ["do", "did", "is"], "pool": ["Emma", "does", "her", "homework", "every", "day.", "do", "did", "is"], "sentence": "Emma does her homework every day."}, {"tokens": ["Aladin", "fixes", "computers."], "distractors": ["fix", "do", "are"], "pool": ["Aladin", "fixes", "computers.", "fix", "do", "are"], "sentence": "Aladin fixes computers."}, {"tokens": ["Our", "teacher", "speaks", "Thai", "and", "English."], "distractors": ["speak", "does", "are"], "pool": ["Our", "teacher", "speaks", "Thai", "and", "English.", "speak", "does", "are"], "sentence": "Our teacher speaks Thai and English."}, {"tokens": ["My", "friend", "plays", "the", "guitar."], "distractors": ["play", "do", "is"], "pool": ["My", "friend", "plays", "the", "guitar.", "play", "do", "is"], "sentence": "My friend plays the guitar."}], "interrogative": [{"tokens": ["Do", "you", "like", "ice", "cream?"], "distractors": ["Does", "likes", "is"], "pool": ["Do", "you", "like", "ice", "cream?", "Does", "likes", "is"], "sentence": "Do you like ice cream?"}, {"tokens": ["Do", "they", "play", "football", "after", "school?"], "distractors": ["plays", "does", "are"], "pool": ["Do", "they", "play", "football", "after", "school?", "plays", "does", "are"], "sentence": "Do they play football after school?"}, {"tokens": ["Do", "we", "need", "a", "pen?"], "distractors": ["needs", "does", "is"], "pool": ["Do", "we", "need", "a", "pen?", "needs", "does", "is"], "sentence": "Do we need a pen?"}, {"tokens": ["Do", "I", "have", "time?"], "distractors": ["has", "does", "am"], "pool": ["Do", "I", "have", "time?", "has", "does", "am"], "sentence": "Do I have time?"}, {"tokens": ["Do", "you", "watch", "TV", "at", "night?"], "distractors": ["watches", "does", "are"], "pool": ["Do", "you", "watch", "TV", "at", "night?", "watches", "does", "are"], "sentence": "Do you watch TV at night?"}, {"tokens": ["Do", "they", "go", "to", "the", "park", "on", "Sundays?"], "distractors": ["goes", "does", "is"], "pool": ["Do", "they", "go", "to", "the", "park", "on", "Sundays?", "goes", "does", "is"], "sentence": "Do they go to the park on Sundays?"}, {"tokens": ["Do", "we", "study", "English", "today?"], "distractors": ["studies", "does", "are"], "pool": ["Do", "we", "study", "English", "today?", "studies", "does", "are"], "sentence": "Do we study English today?"}, {"tokens": ["Do", "you", "drink", "water", "every", "day?"], "distractors": ["drinks", "does", "is"], "pool": ["Do", "you", "drink", "water", "every", "day?", "drinks", "does", "is"], "sentence": "Do you drink water every day?"}, {"tokens": ["Does", "he", "like", "milk?"], "distractors": ["Do", "likes", "are"], "pool": ["Does", "he", "like", "milk?", "Do", "likes", "are"], "sentence": "Does he like milk?"}, {"tokens": ["Does", "she", "cook", "rice?"], "distractors": ["cooks", "Do", "is"], "pool": ["Does", "she", "cook", "rice?", "cooks", "Do", "is"], "sentence": "Does she cook rice?"}, {"tokens": ["Does", "it", "rain", "a", "lot", "in", "July?"], "distractors": ["rains", "Do", "are"], "pool": ["Does", "it", "rain", "a", "lot", "in", "July?", "rains", "Do", "are"], "sentence": "Does it rain a lot in July?"}, {"tokens": ["Does", "your", "dad", "work", "in", "a", "hospital?"], "distractors": ["works", "Do", "is"], "pool": ["Does", "your", "dad", "work", "in", "a", "hospital?", "works", "Do", "is"], "sentence": "Does your dad work in a hospital?"}, {"tokens": ["Does", "your", "mom", "teach", "math?"], "distractors": ["teaches", "Do", "are"], "pool": ["Does", "your", "mom", "teach", "math?", "teaches", "Do", "are"], "sentence": "Does your mom teach math?"}, {"tokens": ["Does", "Tom", "read", "books", "every", "week?"], "distractors": ["reads", "Do", "is"], "pool": ["Does", "Tom", "read", "books", "every", "week?", "reads", "Do", "is"], "sentence": "Does Tom read books every week?"}, {"tokens": ["Does", "Jane", "write", "emails", "at", "work?"], "distractors": ["writes", "Do", "are"], "pool": ["Does", "Jane", "write", "emails", "at", "work?", "writes", "Do", "are"], "sentence": "Does Jane write emails at work?"}, {"tokens": ["Does", "my", "brother", "study", "hard?"], "distractors": ["studies", "Do", "is"], "pool": ["Does", "my", "brother", "study", "hard?", "studies", "Do", "is"], "sentence": "Does my brother study hard?"}, {"tokens": ["Does", "the", "cat", "drink", "water?"], "distractors": ["drinks", "Do", "are"], "pool": ["Does", "the", "cat", "drink", "water?", "drinks", "Do", "are"], "sentence": "Does the cat drink water?"}, {"tokens": ["Does", "a", "bird", "fly", "fast?"], "distractors": ["flies", "Do", "is"], "pool": ["Does", "a", "bird", "fly", "fast?", "flies", "Do", "is"], "sentence": "Does a bird fly fast?"}, {"tokens": ["Does", "Kru", "Pai", "help", "students?"], "distractors": ["helps", "Do", "are"], "pool": ["Does", "Kru", "Pai", "help", "students?", "helps", "Do", "are"], "sentence": "Does Kru Pai help students?"}, {"tokens": ["Does", "your", "friend", "play", "the", "guitar?"], "distractors": ["plays", "Do", "is"], "pool": ["Does", "your", "friend", "play", "the", "guitar?", "plays", "Do", "is"], "sentence": "Does your friend play the guitar?"}], "negative": [{"tokens": ["I", "don't", "like", "spicy", "food."], "distractors": ["doesn't", "likes", "am"], "pool": ["I", "don't", "like", "spicy", "food.", "doesn't", "likes", "am"], "sentence": "I don't like spicy food."}, {"tokens": ["You", "don't", "need", "help."], "distractors": ["doesn't", "needs", "are"], "pool": ["You", "don't", "need", "help.", "doesn't", "needs", "are"], "sentence": "You don't need help."}, {"tokens": ["We", "don't", "go", "to", "school", "on", "Sundays."], "distractors": ["doesn't", "goes", "did"], "pool": ["We", "don't", "go", "to", "school", "on", "Sundays.", "doesn't", "goes", "did"], "sentence": "We don't go to school on Sundays."}, {"tokens": ["They", "don't", "watch", "TV", "in", "class."], "distractors": ["doesn't", "watches", "is"], "pool": ["They", "don't", "watch", "TV", "in", "class.", "doesn't", "watches", "is"], "sentence": "They don't watch TV in class."}, {"tokens": ["He", "doesn't", "like", "coffee."], "distractors": ["don't", "likes", "are"], "pool": ["He", "doesn't", "like", "coffee.", "don't", "likes", "are"], "sentence": "He doesn't like coffee."}, {"tokens": ["She", "doesn't", "cook", "today."], "distractors": ["don't", "cooks", "is"], "pool": ["She", "doesn't", "cook", "today.", "don't", "cooks", "is"], "sentence": "She doesn't cook today."}, {"tokens": ["It", "doesn't", "rain", "today."], "distractors": ["don't", "rains", "are"], "pool": ["It", "doesn't", "rain", "today.", "don't", "rains", "are"], "sentence": "It doesn't rain today."}, {"tokens": ["My", "dad", "doesn't", "work", "on", "Saturday."], "distractors": ["don't", "works", "is"], "pool": ["My", "dad", "doesn't", "work", "on", "Saturday.", "don't", "works", "is"], "sentence": "My dad doesn't work on Saturday."}, {"tokens": ["My", "mom", "doesn't", "teach", "on", "Sunday."], "distractors": ["don't", "teaches", "are"], "pool": ["My", "mom", "doesn't", "teach", "on", "Sunday.", "don't", "teaches", "are"], "sentence": "My mom doesn't teach on Sunday."}, {"tokens": ["Tom", "doesn't", "read", "comics."], "distractors": ["don't", "reads", "is"], "pool": ["Tom", "doesn't", "read", "comics.", "don't", "reads", "is"], "sentence": "Tom doesn't read comics."}, {"tokens": ["Jane", "doesn't", "write", "emails", "at", "night."], "distractors": ["don't", "writes", "are"], "pool": ["Jane", "doesn't", "write", "emails", "at", "night.", "don't", "writes", "are"], "sentence": "Jane doesn't write emails at night."}, {"tokens": ["My", "brother", "doesn't", "study", "at", "midnight."], "distractors": ["don't", "studies", "is"], "pool": ["My", "brother", "doesn't", "study", "at", "midnight.", "don't", "studies", "is"], "sentence": "My brother doesn't study at midnight."}, {"tokens": ["The", "cat", "doesn't", "drink", "milk."], "distractors": ["don't", "drinks", "are"], "pool": ["The", "cat", "doesn't", "drink", "milk.", "don't", "drinks", "are"], "sentence": "The cat doesn't drink milk."}, {"tokens": ["A", "bird", "doesn't", "fly", "at", "night."], "distractors": ["don't", "flies", "is"], "pool": ["A", "bird", "doesn't", "fly", "at", "night.", "don't", "flies", "is"], "sentence": "A bird doesn't fly at night."}, {"tokens": ["Kru", "Pai", "doesn't", "give", "homework", "today."], "distractors": ["don't", "gives", "are"], "pool": ["Kru", "Pai", "doesn't", "give", "homework", "today.", "don't", "gives", "are"], "sentence": "Kru Pai doesn't give homework today."}, {"tokens": ["Emma", "doesn't", "play", "games", "on", "weekdays."], "distractors": ["don't", "plays", "is"], "pool": ["Emma", "doesn't", "play", "games", "on", "weekdays.", "don't", "plays", "is"], "sentence": "Emma doesn't play games on weekdays."}, {"tokens": ["Aladin", "doesn't", "eat", "too", "much", "sugar."], "distractors": ["don't", "eats", "are"], "pool": ["Aladin", "doesn't", "eat", "too", "much", "sugar.", "don't", "eats", "are"], "sentence": "Aladin doesn't eat too much sugar."}, {"tokens": ["Our", "teacher", "doesn't", "speak", "French."], "distractors": ["don't", "speaks", "is"], "pool": ["Our", "teacher", "doesn't", "speak", "French.", "don't", "speaks", "is"], "sentence": "Our teacher doesn't speak French."}, {"tokens": ["My", "friend", "doesn't", "play", "basketball."], "distractors": ["don't", "plays", "are"], "pool": ["My", "friend", "doesn't", "play", "basketball.", "don't", "plays", "are"], "sentence": "My friend doesn't play basketball."}, {"tokens": ["He", "doesn't", "have", "a", "car."], "distractors": ["don't", "has", "is"], "pool": ["He", "doesn't", "have", "a", "car.", "don't", "has", "is"], "sentence": "He doesn't have a car."}]};
+
+let player = "Player";
+let stageKey = null;
+let order = [];
+let qi = 0;
+let score = 0;
+let attempt = 0;
+let built = [];
+let pool = [];
+let soundOn = true;
+let sparkleOn = true;
+
+/* Sound FX */
+let ctx=null;
+function audioCtx(){ if(!ctx) ctx = new (window.AudioContext||window.webkitAudioContext)(); return ctx; }
+function beep(f=880, d=0.06, type='sine', gain=0.12){
+  if(!soundOn) return;
+  try{
+    const ac=audioCtx();
+    const o=ac.createOscillator(); const g=ac.createGain();
+    o.type=type; o.frequency.value=f;
+    g.gain.value=0.0001;
+    o.connect(g); g.connect(ac.destination);
+    const t=ac.currentTime;
+    g.gain.setValueAtTime(0.0001,t);
+    g.gain.exponentialRampToValueAtTime(gain,t+0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+d);
+    o.start(t); o.stop(t+d+0.02);
+  }catch(e){}
+}
+function sClick(){ beep(1200,0.04,'square',0.09); }
+function sOk(){ beep(1400,0.07,'triangle',0.14); setTimeout(()=>beep(1800,0.05,'triangle',0.12),70); }
+function sBad(){ beep(220,0.10,'sawtooth',0.10); setTimeout(()=>beep(170,0.08,'sawtooth',0.09),70); }
+
+function sVictory(){
+  // 3-note victory sound
+  beep(1200,0.06,'triangle',0.12);
+  setTimeout(()=>beep(1500,0.06,'triangle',0.14),80);
+  setTimeout(()=>beep(1800,0.08,'triangle',0.16),160);
+}
+function bigWin(text='🌟 PERFECT! 🌟'){
+  const d = document.createElement('div');
+  d.style.position='fixed';
+  d.style.inset='0';
+  d.style.display='grid';
+  d.style.placeItems='center';
+  d.style.fontSize='clamp(36px,8vw,72px)';
+  d.style.fontWeight='900';
+  d.style.color='var(--pink)';
+  d.style.textShadow='0 0 30px rgba(236,72,153,.6)';
+  d.style.zIndex='80';
+  d.style.pointerEvents='none';
+  d.textContent=text;
+  document.body.appendChild(d);
+  d.animate([{transform:'scale(.9)',opacity:0},{transform:'scale(1)',opacity:1},{transform:'scale(1.05)',opacity:1},{transform:'scale(1)',opacity:0}],{duration:900,easing:'ease-out'});
+  setTimeout(()=>d.remove(),900);
+}
+window.addEventListener('pointerdown', ()=>{ if(soundOn) audioCtx(); }, {once:true});
+
+function setSwitch(id,on){ document.getElementById(id).classList.toggle('on', on); }
+function toggleSound(){ soundOn=!soundOn; setSwitch('swSound', soundOn); sClick(); }
+function toggleSparkle(){ sparkleOn=!sparkleOn; setSwitch('swSpark', sparkleOn); document.getElementById('sparkLine').style.display = sparkleOn ? 'block':'none'; sClick(); }
+
+/* Screens */
+const S = {
+  login: document.getElementById('screenLogin'),
+  levels: document.getElementById('screenLevels'),
+  game: document.getElementById('screenGame'),
+  result: document.getElementById('screenResult')
+};
+function show(screen){ Object.values(S).forEach(x=>x.classList.add('hide')); S[screen].classList.remove('hide'); }
+
+/* Navigation */
+function enterLevels(){
+  sClick();
+  const name = (document.getElementById('playerName').value||"").trim();
+  player = name || "Player";
+  document.getElementById('whoLevels').textContent = player;
+  show('levels');
+}
+function resetPlayer(){ sClick(); show('login'); }
+function backToLevels(){ sClick(); show('levels'); }
+
+/* Confetti */
+function burst(){
+  const fx=document.getElementById('fx');
+  fx.classList.remove('hide');
+  fx.innerHTML="";
+  const colors=['#22c55e','#06b6d4','#a7f3d0','#67e8f9','#f9fafb'];
+  for(let k=0;k<28;k++){
+    const it=document.createElement('i');
+    it.style.left=(Math.random()*100)+'vw';
+    it.style.top='-10vh';
+    it.style.background=colors[k%colors.length];
+    it.style.animationDelay=(Math.random()*0.12)+'s';
+    fx.appendChild(it);
+  }
+  setTimeout(()=>{fx.classList.add('hide'); fx.innerHTML="";}, 1000);
+}
+
+/* Stage */
+function stageLabel(key){
+  if(key==='affirmative') return 'Affirmative';
+  if(key==='interrogative') return 'Questions';
+  return 'Negative';
+}
+
+function startStage(key){
+  sClick();
+  stageKey = key;
+  qi = 0; score = 0;
+  document.getElementById('whoGame').textContent = player;
+  document.getElementById('stageName').textContent = stageLabel(stageKey);
+  document.getElementById('score').textContent = score;
+
+  const n = DATA[stageKey].length;
+  order = Array.from({length:n}, (_,i)=>i);
+  for(let i=n-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [order[i],order[j]]=[order[j],order[i]]; }
+  order = order.slice(0,20);
+
+  show('game');
+  loadQuestion();
+}
+
+function buildPool(item){
+  const poolTexts = item.pool.slice();
+  for(let i=poolTexts.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [poolTexts[i],poolTexts[j]]=[poolTexts[j],poolTexts[i]]; }
+  return poolTexts.map((t,idx)=>({id:`w${idx}`, text:t}));
+}
+
+function loadQuestion(){
+  attempt = 0;
+  built = [];
+  document.getElementById('msg').innerHTML = "";
+  const ex = document.getElementById('explain'); ex.classList.add('hide'); ex.innerHTML="";
+  document.getElementById('nextBtn').disabled = true;
+
+  document.getElementById('step').textContent = (qi+1);
+  document.getElementById('bar').style.width = (qi/20*100) + "%";
+
+  document.getElementById('qText').textContent = "— Tap the words below to build the correct sentence —";
+
+  const idx = order[qi];
+  const item = DATA[stageKey][idx];
+  pool = buildPool(item);
+
+  renderBuild();
+  renderBank();
+}
+
+function renderBuild(){
+  const el = document.getElementById('build');
+  el.innerHTML = "";
+  if(built.length===0){
+    const ghost=document.createElement('div');
+    ghost.className='slot';
+    ghost.style.opacity='.55';
+    ghost.textContent='(Your words appear here)';
+    el.appendChild(ghost);
+    return;
+  }
+  built.forEach(id=>{
+    const w = pool.find(x=>x.id===id);
+    const s=document.createElement('div');
+    s.className='slot';
+    s.textContent = w ? w.text : "";
+    el.appendChild(s);
+  });
+}
+
+function renderBank(){
+  const el = document.getElementById('bank');
+  el.innerHTML="";
+  const selected = new Set(built);
+  pool.forEach(w=>{
+    const b=document.createElement('button');
+    b.className='wordBtn' + (selected.has(w.id)?' selected':'');
+    b.textContent=w.text;
+    b.disabled = selected.has(w.id) || document.getElementById('nextBtn').disabled===false;
+    b.onclick = ()=>selectWord(w.id);
+    el.appendChild(b);
+  });
+}
+
+function selectWord(id){
+  sClick();
+  if(!document.getElementById('nextBtn').disabled) return;
+  built.push(id);
+  renderBuild();
+  renderBank();
+}
+
+function undoWord(){
+  sClick();
+  if(!document.getElementById('nextBtn').disabled) return;
+  built.pop();
+  renderBuild();
+  renderBank();
+}
+
+function resetBuild(){
+  sClick();
+  if(!document.getElementById('nextBtn').disabled) return;
+  built = [];
+  renderBuild();
+  renderBank();
+}
+
+function builtText(){
+  return built.map(id=> pool.find(x=>x.id===id)?.text || "").join(" ").trim();
+}
+
+function correctText(){
+  const item = DATA[stageKey][order[qi]];
+  return item.tokens.join(" ").trim();
+}
+
+function lockSolved(){
+  document.querySelectorAll('.wordBtn').forEach(b=>b.disabled=true);
+}
+
+function checkAnswer(){
+  sClick();
+  if(!document.getElementById('nextBtn').disabled) return;
+
+  const user = builtText();
+  const corr = correctText();
+  const msg = document.getElementById('msg');
+  const ex = document.getElementById('explain');
+
+  if(user === corr){
+    score++;
+    document.getElementById('score').textContent = score;
+    msg.innerHTML = `<span class="ok">Correct ✔ +1</span>`;
+    ex.classList.add('hide'); ex.innerHTML="";
+    document.getElementById('nextBtn').disabled = false;
+    lockSolved();
+    burst();
+    // Make it feel BIG when correct
+    document.querySelectorAll('.slot').forEach(s=>s.classList.add('win'));
+    bigWin();
+    sVictory();
+    return;
+  }
+
+  attempt++;
+  if(attempt === 1){
+    msg.innerHTML = `<span class="bad">Not yet ❌ Try one more time</span>`;
+    sBad();
+  } else {
+    msg.innerHTML = `<span class="bad">Wrong again ❌ Here's the answer</span>`;
+    ex.classList.remove('hide');
+    ex.innerHTML = `<div><b>Answer:</b> ${corr}</div>`;
+    // (No auto-fill) Keep student's build so they can compare with the answer below.
+
+    document.getElementById('nextBtn').disabled = false;
+    lockSolved();
+    sBad();
+  }
+}
+
+function nextQuestion(){
+  sClick();
+  if(document.getElementById('nextBtn').disabled) return;
+  qi++;
+  if(qi < 20){
+    loadQuestion();
+  } else {
+    endStage();
+  }
+}
+
+function endStage(){
+  document.getElementById('bar').style.width = "100%";
+  document.getElementById('resultStage').textContent = stageLabel(stageKey);
+  document.getElementById('resultWho').textContent = player;
+  document.getElementById('resultScore').textContent = score;
+  const msg = document.getElementById('resultMsg');
+  if(score>=16) msg.textContent = "Awesome! You're ready for the challenge stage 🏆";
+  else if(score>=12) msg.textContent = "Great job! A bit more practice and you'll be perfect 💪";
+  else msg.textContent = "No worries — try again to get faster 🌿";
+  show('result');
+}
+
+function playAgain(){
+  sClick();
+  startStage(stageKey);
+}
+</script>
+</body>
+</html>
